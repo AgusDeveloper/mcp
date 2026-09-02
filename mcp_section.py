@@ -1,9 +1,17 @@
 import wikipedia
+import sys
 
-from mcp_server import mcp
+def list_wikipedia_sections(topic: str) -> dict:
+    """
+    Return a list of section titles from the Wikipedia page of a given topic.
+    """
+    try:
+        page = wikipedia.page(topic)
+        sections = page.sections
+        return {"sections": sections}
+    except Exception as e:
+        return {"error": str(e)}
 
-
-@mcp.tool()
 def get_section_content(topic: str, section_title: str) -> dict:
     """
     Return the content of a specific section in a Wikipedia article.
@@ -17,3 +25,6 @@ def get_section_content(topic: str, section_title: str) -> dict:
             return {"error": f"Section '{section_title}' not found in article '{topic}'."}
     except Exception as e:
         return {"error": str(e)}
+
+if __name__ == "__main__":
+    print("Run mcp_server.py instead.", file=sys.stderr)

@@ -1,2 +1,5 @@
-mcp>=2,<3
+mcp>=1.13,<2
 wikipedia==1.4.0
+langchain-ollama
+langchain-mcp-adapters
+langgraph

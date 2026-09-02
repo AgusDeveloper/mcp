@@ -1,9 +1,8 @@
 import wikipedia
-from mcp.server.mcpserver import MCPServer
+import sys
+from mcp.server.fastmcp import FastMCP
 
-mcp = MCPServer("WikipediaSearch")
-
-import mcp_section
+mcp = FastMCP("WikipediaSearch")
 
 @mcp.tool()
 def fetch_wikipedia_info(query: str) -> dict:
@@ -35,7 +34,13 @@ def fetch_wikipedia_info(query: str) -> dict:
         }
 
 
+from mcp_section import get_section_content, list_wikipedia_sections
+
+mcp.tool()(list_wikipedia_sections)
+mcp.tool()(get_section_content)
+
+
 # Run the MCP server
 if __name__ == "__main__":
-    print("Starting MCP Wikipedia Server...")
+    print("Starting MCP Wikipedia Server...", file=sys.stderr)
     mcp.run(transport="stdio")
